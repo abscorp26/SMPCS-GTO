@@ -1,190 +1,469 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMPCS-GTO — Download</title>
+<title>SMPCS-GTO — Download App</title>
 <style>
-  :root {
-    --bg: #0f0f1a;
-    --card: #1a1a2e;
-    --accent: #4f46e5;
-    --accent-dark: #3730a3;
-    --text: #f5f5f7;
-    --text-muted: #9999a8;
-    --border: rgba(255,255,255,0.08);
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #3b82f6;
+    --blue-dark: #2563eb;
+    --teal: #06b6d4;
+    --green: #10b981;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+  }
+
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #080e1a;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 24px;
-  }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    max-width: 420px;
-    width: 100%;
     overflow: hidden;
   }
-  .hero {
-    padding: 40px 28px 28px;
-    text-align: center;
-    border-bottom: 1px solid var(--border);
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
   }
+
+  /* Glow orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(80px);
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: rgba(59,130,246,0.12);
+    top: -180px; right: -120px;
+  }
+  .orb-2 {
+    width: 380px; height: 380px;
+    background: rgba(6,182,212,0.08);
+    bottom: -120px; left: -80px;
+  }
+
+  /* Card */
+  .card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    max-width: 440px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow:
+      0 32px 64px rgba(0,0,0,0.5),
+      0 0 0 1px rgba(255,255,255,0.04) inset;
+    animation: rise 0.55s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)   scale(1);    }
+  }
+
+  /* Hero */
+  .hero {
+    padding: 40px 32px 28px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--glass-border);
+    background: linear-gradient(180deg, rgba(59,130,246,0.07) 0%, transparent 100%);
+  }
+
+  .icon-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 22px;
+  }
+
   .icon {
-    width: 72px;
-    height: 72px;
-    border-radius: 18px;
-    background: var(--accent);
+    width: 84px; height: 84px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 18px;
-    font-size: 32px;
-    font-weight: 600;
+    font-size: 38px;
+    font-weight: 800;
+    color: #fff;
+    box-shadow:
+      0 12px 36px rgba(59,130,246,0.45),
+      0 0 0 1px rgba(255,255,255,0.15) inset;
+    position: relative;
+    z-index: 1;
   }
-  h1 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
-  .version-tag {
-    display: inline-block;
+
+  .icon-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 32px;
+    border: 1.5px solid rgba(59,130,246,0.35);
+    animation: breathe 2.4s ease-in-out infinite;
+  }
+  .icon-ring-2 {
+    position: absolute;
+    inset: -16px;
+    border-radius: 38px;
+    border: 1px solid rgba(59,130,246,0.12);
+    animation: breathe 2.4s ease-in-out infinite 0.4s;
+  }
+
+  @keyframes breathe {
+    0%,100% { opacity: 0.4; transform: scale(1);    }
+    50%      { opacity: 0.8; transform: scale(1.04); }
+  }
+
+  .app-name {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    background: linear-gradient(135deg, #f8fafc 30%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  .badges {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     font-size: 12px;
-    color: var(--text-muted);
-    background: rgba(255,255,255,0.06);
+    font-weight: 500;
     padding: 4px 12px;
     border-radius: 20px;
-    margin-top: 6px;
   }
-  .body { padding: 24px 28px; }
+
+  .badge-v {
+    background: rgba(59,130,246,0.14);
+    color: #93c5fd;
+    border: 1px solid rgba(59,130,246,0.25);
+  }
+
+  .badge-free {
+    background: rgba(16,185,129,0.12);
+    color: #6ee7b7;
+    border: 1px solid rgba(16,185,129,0.2);
+  }
+
+  /* Shimmer for loading state */
+  @keyframes shimmer {
+    from { background-position: -200px 0; }
+    to   { background-position:  200px 0; }
+  }
+
+  .loading {
+    display: inline-block;
+    width: 90px;
+    height: 14px;
+    border-radius: 7px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 75%);
+    background-size: 400px 100%;
+    animation: shimmer 1.4s infinite;
+    vertical-align: middle;
+  }
+
+  /* Body */
+  .body {
+    padding: 26px 32px 30px;
+  }
+
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 26px;
+  }
+
   .feature {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
+    align-items: center;
+    gap: 14px;
+    padding: 12px 10px;
+    border-radius: 12px;
+    transition: background 0.15s;
   }
-  .feature:last-child { border-bottom: none; }
-  .feature-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+
+  .feature:hover { background: rgba(255,255,255,0.03); }
+
+  .fi {
+    width: 40px; height: 40px;
+    border-radius: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-size: 16px;
+    font-size: 17px;
   }
-  .feature-text p:first-child { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-  .feature-text p:last-child { font-size: 13px; color: var(--text-muted); }
-  .download-btn {
+
+  .ft strong {
     display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 2px;
+  }
+
+  .ft span {
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  /* Download button */
+  .dl-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     width: 100%;
-    padding: 16px;
-    margin-top: 20px;
-    background: var(--accent);
+    padding: 17px 20px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: #fff;
     border: none;
-    border-radius: 14px;
+    border-radius: 16px;
+    font-family: inherit;
     font-size: 15px;
-    font-weight: 600;
-    text-align: center;
+    font-weight: 700;
     text-decoration: none;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 6px 24px rgba(59,130,246,0.38);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.1px;
   }
-  .download-btn:hover { background: var(--accent-dark); }
+
+  .dl-btn::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+    transition: left 0.5s;
+  }
+
+  .dl-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(59,130,246,0.48);
+  }
+
+  .dl-btn:hover::after { left: 100%; }
+  .dl-btn:active { transform: translateY(0); }
+
+  .dl-icon { font-size: 19px; }
+
   .meta {
     text-align: center;
     font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 14px;
+    color: var(--muted);
+    margin-top: 12px;
+    letter-spacing: 0.2px;
   }
-  .install-note {
-    margin-top: 18px;
-    padding: 14px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 12px;
-    font-size: 12.5px;
-    color: var(--text-muted);
-    line-height: 1.6;
+
+  /* Install guide */
+  .guide {
+    margin-top: 22px;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    overflow: hidden;
   }
-  .install-note strong { color: var(--text); }
-  footer {
-    text-align: center;
-    padding: 18px;
+
+  .guide-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 16px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+  }
+
+  .guide-header span { font-size: 14px; }
+
+  .steps { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+  }
+
+  .sn {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(59,130,246,0.16);
+    color: #93c5fd;
     font-size: 11px;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
   }
-  footer a { color: var(--text-muted); text-decoration: none; }
+
+  .step p {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .step p strong { color: #e2e8f0; }
+
+  /* Footer */
+  footer {
+    padding: 16px 32px;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  footer a {
+    font-size: 12px;
+    color: #334155;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  footer a:hover { color: var(--muted); background: rgba(255,255,255,0.04); }
+
+  .fdot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #1e293b;
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
 
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
 <div class="card">
+
   <div class="hero">
-    <div class="icon">G</div>
-    <h1>SMPCS-GTO</h1>
-    <span class="version-tag" id="version-tag">Loading version…</span>
+    <div class="icon-wrap">
+      <div class="icon">G</div>
+      <div class="icon-ring"></div>
+      <div class="icon-ring-2"></div>
+    </div>
+    <div class="app-name">SMPCS-GTO</div>
+    <div class="badges">
+      <span class="badge badge-v" id="ver"><span class="loading"></span></span>
+      <span class="badge badge-free">✦ Free</span>
+    </div>
   </div>
 
   <div class="body">
-    <div class="feature">
-      <div class="feature-icon" style="background: rgba(79,70,229,0.15); color:#a5b4fc;">⚡</div>
-      <div class="feature-text">
-        <p>Fast and lightweight</p>
-        <p>Runs smoothly, no bloat</p>
+    <div class="features">
+      <div class="feature">
+        <div class="fi" style="background:rgba(59,130,246,0.12);color:#93c5fd;">⚡</div>
+        <div class="ft">
+          <strong>Fast and lightweight</strong>
+          <span>Runs smoothly, no bloat</span>
+        </div>
       </div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon" style="background: rgba(16,185,129,0.15); color:#6ee7b7;">🛡</div>
-      <div class="feature-text">
-        <p>Safe to install</p>
-        <p>No Play Store account needed</p>
+      <div class="feature">
+        <div class="fi" style="background:rgba(16,185,129,0.12);color:#6ee7b7;">🛡</div>
+        <div class="ft">
+          <strong>Safe to install</strong>
+          <span>No Play Store account needed</span>
+        </div>
       </div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon" style="background: rgba(249,115,22,0.15); color:#fdba74;">↻</div>
-      <div class="feature-text">
-        <p>Auto-updates</p>
-        <p>The app notifies you of new versions</p>
+      <div class="feature">
+        <div class="fi" style="background:rgba(249,115,22,0.12);color:#fdba74;">🔄</div>
+        <div class="ft">
+          <strong>Auto-updates</strong>
+          <span>The app notifies you of new versions</span>
+        </div>
       </div>
     </div>
 
-    <a href="https://github.com/abscorp26/SMPCS-GTO/releases/latest/download/app.apk" class="download-btn" id="download-link">
+    <a class="dl-btn" id="dl" href="https://github.com/abscorp26/SMPCS-GTO/releases/latest/download/app-release.1.apk">
+      <span class="dl-icon">⬇</span>
       Download APK
     </a>
-    <p class="meta" id="size-meta">Android 6.0+ · Free</p>
+    <p class="meta" id="meta">Android 6.0+ &nbsp;·&nbsp; No account required</p>
 
-    <div class="install-note">
-      <strong>First time installing?</strong> After downloading, open the file. If you see "blocked by Play Protect" or "install unknown apps", tap <strong>Settings</strong> in that prompt and allow installs from your browser — this is normal for apps installed outside the Play Store.
+    <div class="guide">
+      <div class="guide-header"><span>📋</span> First time installing?</div>
+      <div class="steps">
+        <div class="step">
+          <div class="sn">1</div>
+          <p>Tap <strong>Download APK</strong> and wait for the download to finish.</p>
+        </div>
+        <div class="step">
+          <div class="sn">2</div>
+          <p>Open the file from your <strong>notifications</strong> or <strong>Downloads</strong> folder.</p>
+        </div>
+        <div class="step">
+          <div class="sn">3</div>
+          <p>If prompted about "unknown apps", tap <strong>Settings</strong> and enable installs from your browser.</p>
+        </div>
+        <div class="step">
+          <div class="sn">4</div>
+          <p>Tap <strong>Install</strong> — done. Future updates happen automatically inside the app.</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <footer>
-    <a href="https://github.com/abscorp26/SMPCS-GTO/releases" target="_blank">View all releases on GitHub</a>
+    <a href="https://github.com/abscorp26/SMPCS-GTO/releases" target="_blank">All releases</a>
+    <div class="fdot"></div>
+    <a href="https://github.com/abscorp26/SMPCS-GTO" target="_blank">GitHub</a>
+    <div class="fdot"></div>
+    <a href="https://github.com/abscorp26/SMPCS-GTO/issues" target="_blank">Report issue</a>
   </footer>
+
 </div>
 
 <script>
-  // Pulls the live version number from version.json so the page always shows
-  // the current release without you having to edit this HTML every time.
   fetch('https://raw.githubusercontent.com/abscorp26/SMPCS-GTO/main/version.json')
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('version-tag').textContent = 'Version ' + data.version;
-      if (data.url) {
-        document.getElementById('download-link').href = data.url;
-      }
+    .then(r => r.json())
+    .then(d => {
+      document.getElementById('ver').textContent = 'Version ' + d.version;
+      if (d.url) document.getElementById('dl').href = d.url;
+      if (d.size) document.getElementById('meta').textContent =
+        'Android 6.0+  ·  ' + d.size + '  ·  No account required';
     })
     .catch(() => {
-      document.getElementById('version-tag').textContent = 'Latest release';
+      document.getElementById('ver').textContent = 'Latest release';
     });
 </script>
 
